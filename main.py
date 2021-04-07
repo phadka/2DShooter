@@ -24,7 +24,9 @@ bullets = []
 enemy_img = pygame.transform.smoothscale(pygame.image.load("enemy.png").convert(), (60, 60))
 enemies = []
 
-score_font = pygame.font.SysFont("arial", 20)
+background_img = pygame.transform.smoothscale(pygame.image.load("background.jpg").convert(), (1200, 800))
+
+score_font = pygame.font.SysFont("arial", 25)
 game_over_font = pygame.font.SysFont("arial", 40)
 
 def draw_gun():
@@ -97,20 +99,23 @@ def check_if_game_over():
             game_over = True
 
 def draw_score():
-    text = score_font.render("Punktzahl: " + str(score), True, (0, 0, 0))
+    text = score_font.render("Punktzahl: " + str(score), True, (255, 255, 255))
     rect = text.get_rect()
     rect.center = 600, 100
     screen.blit(text, rect)
 
 def draw_endscreen():
-    score_text = score_font.render("Punktzahl: " + str(score), True, (0, 0, 0))
-    game_over_text = game_over_font.render("Spiel Vorbei!", True, (0,0,0))
+    score_text = score_font.render("Punktzahl: " + str(score), True, (255, 255, 255))
+    game_over_text = game_over_font.render("Spiel Vorbei!", True, (255, 255, 255))
     score_rect = score_text.get_rect()
     game_over_rect = game_over_text.get_rect()
     score_rect.center = 600, 500
     game_over_rect.center = 600, 300
     screen.blit(score_text, score_rect)
     screen.blit(game_over_text, game_over_rect)
+
+def draw_background():
+    screen.blit(background_img, pygame.Rect(0, 0, 1200, 800))
 
 while True:
     screen.fill((255, 255, 255))
@@ -121,11 +126,13 @@ while True:
         spaw_enemies()
         check_for_hits()
         check_if_game_over()
+        draw_background()
         draw_gun()
         draw_bullets()
         draw_enemies()
         draw_score()
     else:
+        draw_background()
         draw_endscreen()
     pygame.display.flip()
     clock.tick(60)

@@ -7,6 +7,7 @@ class Bullet:
         self.y = 400
         self.x = self.x - math.sin(math.radians(self.rot)) * 40
         self.y = self.y - math.cos(math.radians(self.rot)) * 40
+        
     def update(self):
         self.x = self.x - math.sin(math.radians(self.rot)) * 25
         self.y = self.y - math.cos(math.radians(self.rot)) * 25

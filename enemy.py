@@ -16,6 +16,7 @@ class Enemy:
             self.y = 790
             self.x = int(random.random() * 1200)
         self.rot = 0
+
     def update(self):
         dx = 600 - self.x
         if dx == 0:
