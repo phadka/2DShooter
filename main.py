@@ -3,7 +3,7 @@ from bullet import *
 from enemy import *
 pygame.init()
 pygame.display.set_caption("2D-Shooter")
-pygame.display.set_icon(pygame.image.load("enemy.png"))
+pygame.display.set_icon(pygame.image.load("gun.png"))
 
 size = width, height = 1200, 800
 rot = 0.0
@@ -14,14 +14,14 @@ game_over = False
 screen = pygame.display.set_mode(size)
 clock = pygame.time.Clock()
 
-gun_img = pygame.transform.smoothscale(pygame.image.load("gun.png").convert(), (50, 50))
+gun_img = pygame.transform.smoothscale(pygame.image.load("gun.png").convert(), (80, 80))
 gunrect = gun_img.get_rect()
 gunrect.center = 600, 400
 
 bullet_img = pygame.image.load("bullet.png").convert()
 bullets = []
 
-enemy_img = pygame.transform.smoothscale(pygame.image.load("enemy.png").convert(), (80, 80))
+enemy_img = pygame.transform.smoothscale(pygame.image.load("enemy.png").convert(), (60, 60))
 enemies = []
 
 score_font = pygame.font.SysFont("arial", 20)
@@ -72,9 +72,10 @@ def spaw_enemies():
 
 def draw_enemies():
     for en in enemies:
-        rect = enemy_img.get_rect()
+        new_image = pygame.transform.rotate(enemy_img, en.rot)
+        rect = new_image.get_rect()
         rect.center = en.x, en.y
-        screen.blit(enemy_img, rect)
+        screen.blit(new_image, rect)
 
 def check_for_hits():
     for bul in bullets:
@@ -82,7 +83,7 @@ def check_for_hits():
             bullets.remove(bul)
             continue
         for en in enemies:
-            if bul.x > en.x - 40 and bul.x < en.x + 40 and bul.y > en.y - 40 and bul.y < en.y + 40:
+            if bul.x > en.x - 30 and bul.x < en.x + 30 and bul.y > en.y - 30 and bul.y < en.y + 30:
                 global score
                 score += 1
                 enemies.remove(en)
